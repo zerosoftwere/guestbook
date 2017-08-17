@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: redis-slave
+  labels:
+    tier: backend
+    type: db
+    role: slave
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        type: db
+        role: slave
+        name: redis-slave
+    spec:
+      containers:
+        - name: redis-slave
+          image: xerosoft/redis-slave
+          ports:
+            - containerPort: 6379
